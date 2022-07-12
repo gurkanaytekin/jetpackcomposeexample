@@ -1,4 +1,4 @@
-package com.gurkanaytekin.jetpackcomposeexample.jetpacknavigation
+package com.gurkanaytekin.jetpackcomposeexample.ui.login
 
 import android.util.Log
 import androidx.compose.foundation.layout.*
@@ -14,17 +14,17 @@ import androidx.compose.runtime.saveable.rememberSaveable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.vector.ImageVector
-import androidx.compose.ui.res.colorResource
 import androidx.compose.ui.text.input.ImeAction
 import androidx.compose.ui.text.input.KeyboardType
 import androidx.compose.ui.text.input.PasswordVisualTransformation
 import androidx.compose.ui.text.input.VisualTransformation
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
-import com.gurkanaytekin.jetpackcomposeexample.R
+import androidx.hilt.navigation.compose.hiltViewModel
+import androidx.lifecycle.viewmodel.compose.viewModel
 
 @Composable
-fun LoginScreen() {
+fun LoginScreen(viewModel: LoginViewModel) {
     var emailValue by rememberSaveable { mutableStateOf("") }
     var passwordValue by rememberSaveable { mutableStateOf("") }
     Column(modifier = Modifier
@@ -60,9 +60,9 @@ fun OutlinedTextFieldComposable(value: String, onInputChanged: (String) -> Unit,
             }
         },
         visualTransformation =
-            if(keyboardType == KeyboardType.Password) {
-                if (showPassword.value) VisualTransformation.None else PasswordVisualTransformation()
-            } else VisualTransformation.None,
+        if(keyboardType == KeyboardType.Password) {
+            if (showPassword.value) VisualTransformation.None else PasswordVisualTransformation()
+        } else VisualTransformation.None,
 
         trailingIcon = {
             if(keyboardType == KeyboardType.Password) {
@@ -79,5 +79,6 @@ fun OutlinedTextFieldComposable(value: String, onInputChanged: (String) -> Unit,
 @Preview(showBackground = true)
 @Composable
 fun LoginScreenPreview() {
-    LoginScreen()
+    val viewModel = hiltViewModel<LoginViewModel>()
+    LoginScreen(viewModel)
 }

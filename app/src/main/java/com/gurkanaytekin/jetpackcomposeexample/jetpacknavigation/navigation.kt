@@ -7,13 +7,17 @@ import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
 import androidx.navigation.navArgument
+import com.gurkanaytekin.jetpackcomposeexample.ui.login.LoginScreen
+import androidx.hilt.navigation.compose.hiltViewModel
+import com.gurkanaytekin.jetpackcomposeexample.ui.login.LoginViewModel
 
 @Composable
 fun Navigation() {
     val navController = rememberNavController()
     NavHost(navController = navController, startDestination = Screen.LoginScreen.route) {
         composable(route = Screen.LoginScreen.route) {
-            LoginScreen()
+            val viewModel = hiltViewModel<LoginViewModel>()
+            LoginScreen(viewModel)
         }
         composable(route = Screen.MainScreen.route) {
             MainScreen(navController = navController)

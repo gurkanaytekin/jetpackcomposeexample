@@ -7,7 +7,10 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.tooling.preview.Preview
 import com.gurkanaytekin.jetpackcomposeexample.components.AppBar
 import com.gurkanaytekin.jetpackcomposeexample.jetpacknavigation.Navigation
+import com.gurkanaytekin.jetpackcomposeexample.ui.login.LoginViewModel
+import dagger.hilt.android.AndroidEntryPoint
 
+@AndroidEntryPoint
 class MainActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
