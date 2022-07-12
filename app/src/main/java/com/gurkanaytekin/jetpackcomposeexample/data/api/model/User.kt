@@ -11,7 +11,7 @@ data class User(
     @Json(name = "createdAt")
     val createdAt: String,
     @Json(name = "email")
-    val email: String,
+    var email: String,
     @Json(name = "_id")
     val id: String,
     @Json(name = "name")

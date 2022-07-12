@@ -8,10 +8,15 @@ import javax.inject.Inject
 class TaskRepo @Inject constructor(
     private val taskApi: TodoApi
 ) {
+    private var token: String = ""
     suspend fun getTaskList(): List<Task> {
         return taskApi.GetTasks()
     }
     suspend fun login(loginRequest: LoginRequest): LoginResponse {
         return taskApi.Login(loginRequest)
+    }
+
+    suspend fun setToken(token: String) {
+        this.token = token
     }
 }

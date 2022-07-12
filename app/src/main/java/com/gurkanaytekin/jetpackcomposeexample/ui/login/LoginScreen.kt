@@ -21,12 +21,15 @@ import androidx.compose.ui.text.input.VisualTransformation
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
-import androidx.lifecycle.viewmodel.compose.viewModel
+import androidx.navigation.NavController
+import androidx.navigation.compose.rememberNavController
+import com.gurkanaytekin.jetpackcomposeexample.jetpacknavigation.Screen
 
 @Composable
-fun LoginScreen(viewModel: LoginViewModel) {
-    var emailValue by rememberSaveable { mutableStateOf("") }
+fun LoginScreen(viewModel: LoginViewModel, navController: NavController) {
+    viewModel.setNavigation(navController)
     var passwordValue by rememberSaveable { mutableStateOf("") }
+    Log.d("LoginScrre", viewModel.state.toString())
     Column(modifier = Modifier
         .fillMaxSize()
         .padding(horizontal = 16.dp),
@@ -36,21 +39,23 @@ fun LoginScreen(viewModel: LoginViewModel) {
         Row(modifier = Modifier
             .fillMaxWidth(), horizontalArrangement = Arrangement.SpaceBetween) {
         }
-        OutlinedTextFieldComposable(emailValue, onInputChanged = { emailValue = it }, label = "Username", leadingIcon = Icons.Filled.Email, keyboardType = KeyboardType.Email)
+        OutlinedTextFieldComposable(viewModel.state.value?.email, onInputChanged = { viewModel.onUsernameChange(it) }, label = "Username", leadingIcon = Icons.Filled.Email, keyboardType = KeyboardType.Email)
         OutlinedTextFieldComposable(passwordValue, onInputChanged = { passwordValue = it }, label = "Password", leadingIcon = Icons.Filled.Lock, keyboardType = KeyboardType.Password)
-        Button(onClick = { /*TODO*/ }) {
+        Button(onClick = {
+            viewModel.singIn()
+        }) {
             Text(text = "Sıgn In")
         }
     }
 }
 
 @Composable
-fun OutlinedTextFieldComposable(value: String, onInputChanged: (String) -> Unit, label: String, leadingIcon: ImageVector, keyboardType: KeyboardType = KeyboardType.Text) {
+fun OutlinedTextFieldComposable(value: String?, onInputChanged: (String) -> Unit, label: String, leadingIcon: ImageVector, keyboardType: KeyboardType = KeyboardType.Text) {
     val showPassword = remember { mutableStateOf(false) }
     OutlinedTextField(
         modifier = Modifier.fillMaxWidth(),
         singleLine = true,
-        value = value,
+        value = value?: "",
         onValueChange = onInputChanged,
         label = { Text(label) },
         keyboardOptions = KeyboardOptions(keyboardType = keyboardType, imeAction = ImeAction.None),
@@ -80,5 +85,5 @@ fun OutlinedTextFieldComposable(value: String, onInputChanged: (String) -> Unit,
 @Composable
 fun LoginScreenPreview() {
     val viewModel = hiltViewModel<LoginViewModel>()
-    LoginScreen(viewModel)
+    LoginScreen(viewModel, rememberNavController())
 }
