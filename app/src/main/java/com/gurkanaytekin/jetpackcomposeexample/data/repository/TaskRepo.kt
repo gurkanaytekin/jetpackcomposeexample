@@ -1,22 +1,19 @@
 package com.gurkanaytekin.jetpackcomposeexample.data.repository
+import android.util.Log
 import com.gurkanaytekin.jetpackcomposeexample.data.api.TodoApi
-import com.gurkanaytekin.jetpackcomposeexample.data.api.model.LoginRequest
-import com.gurkanaytekin.jetpackcomposeexample.data.api.model.LoginResponse
-import com.gurkanaytekin.jetpackcomposeexample.data.api.model.Task
+import com.gurkanaytekin.jetpackcomposeexample.data.api.model.*
 import javax.inject.Inject
 
 class TaskRepo @Inject constructor(
     private val taskApi: TodoApi
 ) {
-    private var token: String = ""
-    suspend fun getTaskList(): List<Task> {
+    suspend fun getTaskList(): GetTaskListResponse {
         return taskApi.GetTasks()
     }
     suspend fun login(loginRequest: LoginRequest): LoginResponse {
         return taskApi.Login(loginRequest)
     }
-
-    suspend fun setToken(token: String) {
-        this.token = token
+    suspend fun addTask(addTaskRequest: AddTaskRequest): AddTaskResponse {
+        return taskApi.addTask(addTaskRequest)
     }
 }

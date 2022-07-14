@@ -1,0 +1,13 @@
+package com.gurkanaytekin.jetpackcomposeexample.data.api.model
+
+
+import com.squareup.moshi.Json
+import com.squareup.moshi.JsonClass
+
+@JsonClass(generateAdapter = true)
+data class AddTaskResponse(
+    @Json(name = "data")
+    val `data`: Task,
+    @Json(name = "success")
+    val success: Boolean
+)

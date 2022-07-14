@@ -7,7 +7,7 @@ import com.squareup.moshi.JsonClass
 @JsonClass(generateAdapter = true)
 data class Task(
     @Json(name = "completed")
-    val completed: Boolean,
+    var completed: Boolean,
     @Json(name = "createdAt")
     val createdAt: String,
     @Json(name = "description")
