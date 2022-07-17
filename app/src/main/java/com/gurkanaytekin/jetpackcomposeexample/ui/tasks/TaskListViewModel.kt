@@ -8,22 +8,13 @@ import androidx.lifecycle.viewModelScope
 import androidx.navigation.NavController
 import com.gurkanaytekin.jetpackcomposeexample.data.api.model.AddTaskRequest
 import com.gurkanaytekin.jetpackcomposeexample.data.api.model.Task
+import com.gurkanaytekin.jetpackcomposeexample.data.api.model.UpdateTaskRequest
 import com.gurkanaytekin.jetpackcomposeexample.data.api.model.User
 import com.gurkanaytekin.jetpackcomposeexample.data.repository.TaskRepo
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.launch
 import java.io.IOException
 import javax.inject.Inject
-/*
-interface ITaskListViewModel {
-    var navHostController: NavController
-    var tasks: List<Task>
-    var navTask: String
-    fun setNavigation(navHostController: NavController)
-    fun changeCompleted(id: String, completed: Boolean)
-    fun setNavigation(navHostController: NavController)
-    fun changeCompleted(id: String, completed: Boolean)
-}*/
 
 @HiltViewModel
 class TaskListViewModel @Inject constructor(
@@ -31,20 +22,35 @@ class TaskListViewModel @Inject constructor(
 ) : ViewModel() {
 
     var navHostController: NavController? = null
-    //var tasks = mutableStateListOf<Task>()
     var tasks by mutableStateOf(emptyList<Task>())
     var newTask by mutableStateOf("")
 
     fun setNavigation(navHostController: NavController) {
         this.navHostController = navHostController
     }
-    fun changeCompleted(id: String, completed: Boolean) {
-        //tasks?.find { it.id == id }?.completed = completed
-        tasks = tasks.mapIndexed { index, task ->
-            if(task.id == id) task.copy(completed = completed)
-            else task
+    fun onChangeCompletedStatus(id: String, completed: Boolean) {
+        viewModelScope.launch {
+            val resultTask = taskRepo.updateTask(completed, id)
+            tasks = tasks.mapIndexed { _, task ->
+                if(task.id == id) task.copy(completed = resultTask.data.completed)
+                else task
+            }
+            Log.d("viewmodel", tasks.toString())
         }
-        Log.d("viewmodel", tasks.toString())
+
+    }
+
+    fun deleteTask(id: String) {
+        viewModelScope.launch {
+            val deleteTaskResponse = taskRepo.deleteTask(id)
+            if(deleteTaskResponse.success) {
+                tasks = tasks.filterIndexed{ _, task ->
+                    task.id != id
+                }
+                Log.d("viewmodel", tasks.toString())
+            }
+        }
+
     }
 
     fun addTask() {

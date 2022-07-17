@@ -13,4 +13,10 @@ interface TodoApi {
 
     @POST(ApiConstants.BASE_URL + "task")
     suspend fun addTask(@Body addTaskRequest: AddTaskRequest): AddTaskResponse
+
+    @PUT(ApiConstants.BASE_URL + "task/{id}")
+    suspend fun updateTask(@Body updateTask: UpdateTaskRequest, @Path("id") path: String,): UpdateTaskResponse
+
+    @DELETE(ApiConstants.BASE_URL + "task/{id}")
+    suspend fun deleteTask(@Path("id") path: String,): UpdateTaskResponse
 }

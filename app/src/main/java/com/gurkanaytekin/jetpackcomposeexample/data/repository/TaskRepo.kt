@@ -16,4 +16,10 @@ class TaskRepo @Inject constructor(
     suspend fun addTask(addTaskRequest: AddTaskRequest): AddTaskResponse {
         return taskApi.addTask(addTaskRequest)
     }
+    suspend fun updateTask(newCompletedStatus: Boolean, id: String): UpdateTaskResponse {
+        return taskApi.updateTask(UpdateTaskRequest(completed = newCompletedStatus), id)
+    }
+    suspend fun deleteTask(id: String): UpdateTaskResponse {
+        return taskApi.deleteTask(id)
+    }
 }

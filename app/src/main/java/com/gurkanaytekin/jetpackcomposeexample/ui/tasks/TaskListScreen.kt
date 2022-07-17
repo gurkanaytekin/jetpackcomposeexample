@@ -9,10 +9,7 @@ import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.text.KeyboardOptions
 import androidx.compose.material.*
 import androidx.compose.material.icons.Icons
-import androidx.compose.material.icons.filled.Email
-import androidx.compose.material.icons.filled.KeyboardArrowDown
-import androidx.compose.material.icons.filled.KeyboardArrowUp
-import androidx.compose.material.icons.filled.Lock
+import androidx.compose.material.icons.filled.*
 import androidx.compose.runtime.*
 import androidx.compose.runtime.saveable.rememberSaveable
 import androidx.compose.ui.Alignment
@@ -40,15 +37,14 @@ fun TaskListScreen(navController: NavController) {
     Column(modifier = Modifier
         .fillMaxSize()
         .padding(horizontal = 16.dp),
-        horizontalAlignment = Alignment.CenterHorizontally,
         verticalArrangement = Arrangement.Top
     ) {
         Text("Tasks List", fontSize = 24.sp)
-        Row(Modifier.fillMaxWidth(), horizontalArrangement = Arrangement.SpaceBetween, verticalAlignment = Alignment.CenterVertically) {
+        Row( horizontalArrangement = Arrangement.SpaceBetween) {
             Column {
                 TextFieldAlternative(value = viewModel.newTask, onInputChanged = {viewModel.newTask = it})
             }
-            Column {
+            Column(modifier = Modifier.padding(horizontal = 7.dp)) {
                 Button(onClick = { viewModel.addTask() }) {
                     Text(text = "Ekle")
                 }
@@ -71,9 +67,14 @@ fun TaskListScreen(navController: NavController) {
                             .padding(vertical = 10.dp)
                             .height(26.dp), verticalAlignment = CenterVertically) {
                             Checkbox(checked = it.completed, onCheckedChange = { checkedChange ->
-                                viewModel.changeCompleted(it.id, !it.completed)
+                                viewModel.onChangeCompletedStatus(it.id, !it.completed)
                             })
                             Text(text = it.description)
+                            Row(modifier = Modifier.fillMaxSize(), horizontalArrangement = Arrangement.End) {
+                                IconButton(onClick = { viewModel.deleteTask(it.id) }) {
+                                    Icon(Icons.Filled.Delete, contentDescription = "")
+                                }
+                            }
                         }
 
                     }
