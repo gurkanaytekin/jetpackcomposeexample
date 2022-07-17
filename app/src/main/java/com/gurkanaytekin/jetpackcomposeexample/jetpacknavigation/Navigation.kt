@@ -10,23 +10,21 @@ import androidx.navigation.compose.rememberNavController
 import androidx.navigation.navArgument
 import com.gurkanaytekin.jetpackcomposeexample.ui.login.LoginScreen
 import androidx.hilt.navigation.compose.hiltViewModel
+import androidx.navigation.NavHostController
 import com.gurkanaytekin.jetpackcomposeexample.ui.login.LoginViewModel
+import com.gurkanaytekin.jetpackcomposeexample.ui.tasks.TaskListScreen
+import com.gurkanaytekin.jetpackcomposeexample.ui.tasks.TaskListViewModel
 import java.util.*
 
 @Composable
-fun Navigation() {
-    val navController = rememberNavController()
+fun Navigation(navController: NavHostController) {
     NavHost(navController = navController, startDestination = Screen.LoginScreen.route) {
         composable(route = Screen.LoginScreen.route) {
-            val parentEntry = remember(it) {
-                navController.getBackStackEntry(Screen.LoginScreen.route)
-            }
-
-            val viewModel = hiltViewModel<LoginViewModel>(parentEntry)
+            val viewModel = hiltViewModel<LoginViewModel>()
             LoginScreen(viewModel, navController)
         }
-        composable(route = Screen.MainScreen.route) {
-            MainScreen(navController = navController)
+        composable(route = Screen.TaskListScreen.route) {
+            TaskListScreen(navController = navController)
         }
         composable(route = Screen.DetailScreen.route, arguments = listOf(
             navArgument("id") {
