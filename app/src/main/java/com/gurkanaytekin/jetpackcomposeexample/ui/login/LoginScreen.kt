@@ -34,7 +34,8 @@ fun LoginScreen(viewModel: LoginViewModel, navController: NavController) {
         .fillMaxSize()
         .padding(horizontal = 16.dp),
         horizontalAlignment = Alignment.CenterHorizontally,
-        verticalArrangement = Arrangement.Center) {
+        verticalArrangement = Arrangement.Center
+    ) {
         Text(text = "Login")
         Row(modifier = Modifier
             .fillMaxWidth(), horizontalArrangement = Arrangement.SpaceBetween) {
@@ -42,6 +43,7 @@ fun LoginScreen(viewModel: LoginViewModel, navController: NavController) {
         OutlinedTextFieldComposable(viewModel.email, onInputChanged = { viewModel.email = it}, label = "Username", leadingIcon = Icons.Filled.Email, keyboardType = KeyboardType.Email)
         OutlinedTextFieldComposable(viewModel.password, onInputChanged = {  viewModel.password = it  }, label = "Password", leadingIcon = Icons.Filled.Lock, keyboardType = KeyboardType.Password)
         Button(
+            modifier = Modifier.padding(top = 5.dp),
             enabled = !viewModel.callServiceState,
             onClick = {
                 viewModel.singIn()

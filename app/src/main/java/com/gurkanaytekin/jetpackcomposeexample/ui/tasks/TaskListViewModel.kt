@@ -24,6 +24,9 @@ class TaskListViewModel @Inject constructor(
     var navHostController: NavController? = null
     var tasks by mutableStateOf(emptyList<Task>())
     var newTask by mutableStateOf("")
+    var dialogStatus by mutableStateOf(false)
+    var selectedIdForDeletion: String by mutableStateOf("")
+    var serviceCalling by mutableStateOf(false)
 
     fun setNavigation(navHostController: NavController) {
         this.navHostController = navHostController
@@ -40,12 +43,12 @@ class TaskListViewModel @Inject constructor(
 
     }
 
-    fun deleteTask(id: String) {
+    fun deleteTask() {
         viewModelScope.launch {
-            val deleteTaskResponse = taskRepo.deleteTask(id)
+            val deleteTaskResponse = taskRepo.deleteTask(selectedIdForDeletion)
             if(deleteTaskResponse.success) {
                 tasks = tasks.filterIndexed{ _, task ->
-                    task.id != id
+                    task.id != selectedIdForDeletion
                 }
                 Log.d("viewmodel", tasks.toString())
             }
@@ -56,11 +59,14 @@ class TaskListViewModel @Inject constructor(
     fun addTask() {
         viewModelScope.launch {
             try {
+                serviceCalling = true
                 val newTaskResponse = taskRepo.addTask(AddTaskRequest(newTask))
                 tasks = tasks + newTaskResponse.data
                 Log.d("tasklist", tasks.toString())
             } catch (e: IOException) {
                 Log.d("login", e.toString())
+            } finally {
+                serviceCalling = false
             }
         }
     }

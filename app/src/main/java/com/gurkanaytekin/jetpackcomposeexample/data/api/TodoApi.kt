@@ -18,5 +18,5 @@ interface TodoApi {
     suspend fun updateTask(@Body updateTask: UpdateTaskRequest, @Path("id") path: String,): UpdateTaskResponse
 
     @DELETE(ApiConstants.BASE_URL + "task/{id}")
-    suspend fun deleteTask(@Path("id") path: String,): UpdateTaskResponse
+    suspend fun deleteTask(@Path("id") path: String,): DeleteTaskResponse
 }

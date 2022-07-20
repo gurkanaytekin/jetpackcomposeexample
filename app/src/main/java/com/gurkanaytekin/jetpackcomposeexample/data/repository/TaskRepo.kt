@@ -19,7 +19,7 @@ class TaskRepo @Inject constructor(
     suspend fun updateTask(newCompletedStatus: Boolean, id: String): UpdateTaskResponse {
         return taskApi.updateTask(UpdateTaskRequest(completed = newCompletedStatus), id)
     }
-    suspend fun deleteTask(id: String): UpdateTaskResponse {
+    suspend fun deleteTask(id: String): DeleteTaskResponse {
         return taskApi.deleteTask(id)
     }
 }

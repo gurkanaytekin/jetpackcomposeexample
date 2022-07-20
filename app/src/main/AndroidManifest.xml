@@ -15,9 +15,6 @@
         android:theme="@style/Theme.JetpackComposeExample"
         tools:targetApi="31">
         <activity
-            android:name=".AddToDo"
-            android:exported="false" />
-        <activity
             android:name=".MainActivity"
             android:exported="true"
             android:label="@string/app_name"
