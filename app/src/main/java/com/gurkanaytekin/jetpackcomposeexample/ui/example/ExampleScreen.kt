@@ -1,4 +1,4 @@
-package com.gurkanaytekin.jetpackcomposeexample.ui.login
+package com.gurkanaytekin.jetpackcomposeexample.ui.example
 
 import android.util.Log
 import androidx.compose.foundation.layout.*
@@ -28,9 +28,10 @@ import androidx.navigation.compose.rememberNavController
 import com.gurkanaytekin.jetpackcomposeexample.components.OutlinedTextFieldComposable
 
 @Composable
-fun LoginScreen(viewModel: LoginViewModel, navController: NavController) {
-    viewModel.setNavigation(navController)
-    Log.d("LoginScrre", viewModel.email)
+fun ExampleScreen(navController: NavController) {
+    var email by mutableStateOf("gurkanaytekin@yandex.com.tr")
+    var password by mutableStateOf("12345678")
+    var callServiceState by mutableStateOf(false)
     Column(modifier = Modifier
         .fillMaxSize()
         .padding(horizontal = 16.dp),
@@ -38,19 +39,14 @@ fun LoginScreen(viewModel: LoginViewModel, navController: NavController) {
         verticalArrangement = Arrangement.Center
     ) {
         Text(text = "Login")
-        Row(modifier = Modifier
-            .fillMaxWidth(), horizontalArrangement = Arrangement.SpaceBetween) {
-        }
-        OutlinedTextFieldComposable(viewModel.email, onInputChanged = { viewModel.email = it}, label = "Username", leadingIcon = Icons.Filled.Email, keyboardType = KeyboardType.Email)
-        OutlinedTextFieldComposable(viewModel.password, onInputChanged = {  viewModel.password = it  }, label = "Password", leadingIcon = Icons.Filled.Lock, keyboardType = KeyboardType.Password)
+        OutlinedTextFieldComposable(email, onInputChanged = { email = it}, label = "Username", leadingIcon = Icons.Filled.Email, keyboardType = KeyboardType.Email)
+        OutlinedTextFieldComposable(password, onInputChanged = {  password = it  }, label = "Password", leadingIcon = Icons.Filled.Lock, keyboardType = KeyboardType.Password)
         Button(
             modifier = Modifier.padding(top = 5.dp),
-            enabled = !viewModel.callServiceState,
-            onClick = {
-                viewModel.singIn()
-            }
+            enabled = !callServiceState,
+            onClick = {}
         ) {
-            Text(text = "Sıgn In")
+            Text(text = "Sign In")
         }
         Text(text = "Şifremi Unuttum")
     }
@@ -59,7 +55,6 @@ fun LoginScreen(viewModel: LoginViewModel, navController: NavController) {
 
 @Preview(showBackground = true)
 @Composable
-fun LoginScreenPreview() {
-    val viewModel = hiltViewModel<LoginViewModel>()
-    LoginScreen(viewModel, rememberNavController())
+fun ExampleScreenPreview() {
+    ExampleScreen(rememberNavController())
 }

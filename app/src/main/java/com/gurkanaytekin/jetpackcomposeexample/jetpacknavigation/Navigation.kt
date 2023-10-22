@@ -11,6 +11,7 @@ import androidx.navigation.navArgument
 import com.gurkanaytekin.jetpackcomposeexample.ui.login.LoginScreen
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.NavHostController
+import com.gurkanaytekin.jetpackcomposeexample.ui.example.ExampleScreen
 import com.gurkanaytekin.jetpackcomposeexample.ui.login.LoginViewModel
 import com.gurkanaytekin.jetpackcomposeexample.ui.tasks.TaskListScreen
 import com.gurkanaytekin.jetpackcomposeexample.ui.tasks.TaskListViewModel
@@ -34,6 +35,9 @@ fun Navigation(navController: NavHostController) {
             val id = it.arguments?.getInt("id")?: 0;
             Log.d("DetailScreen", "Parametre $id")
             DetailScreen(id)
+        }
+        composable(route = Screen.ExampleScreen.route) {
+            ExampleScreen(navController)
         }
     }
 }

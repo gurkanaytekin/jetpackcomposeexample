@@ -17,9 +17,6 @@ class ProjectTest {
 
     @get:Rule
     val composeTestRule = createComposeRule()
-    // use createAndroidComposeRule<YourActivity>() if you need access to
-    // an activity
-
     @Test
     fun textFieldTest() {
         // Start the app

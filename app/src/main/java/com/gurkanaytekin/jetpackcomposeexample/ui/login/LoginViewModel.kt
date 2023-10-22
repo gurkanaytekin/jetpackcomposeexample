@@ -26,11 +26,14 @@ class UiState {
     lateinit var password: String
 }
 
+abstract class LoginViewModelImp: ViewModel() {
+    // interface visible to your view
+}
 
 @HiltViewModel
 class LoginViewModel @Inject constructor(
     private val taskRepo: TaskRepo,
-) : ViewModel() {
+) : LoginViewModelImp() {
     var navHostController: NavController? = null
 
     var email by mutableStateOf("gurkanaytekin@yandex.com.tr")
