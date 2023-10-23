@@ -7,16 +7,36 @@ pluginManagement {
     resolutionStrategy{
         eachPlugin{
             if (requested.id.id == 'dagger.hilt.android.plugin'){
-                useModule("com.google.dagger:hilt-android-gradle-plugin:2.38.1")
+                useModule("com.google.dagger:hilt-android-gradle-plugin:2.46.1")
             }
         }
     }}
+def modules_folder = "react-native-dependencies"
 dependencyResolutionManagement {
-    repositoriesMode.set(RepositoriesMode.FAIL_ON_PROJECT_REPOS)
+    repositoriesMode.set(RepositoriesMode.PREFER_SETTINGS)
     repositories {
         google()
         mavenCentral()
+        jcenter()
+        maven {
+            url "$modules_folder/react-native/android"
+        }
+        maven {
+            url("$modules_folder/jsc-android/dist")
+        }
     }
 }
+
+
+
 rootProject.name = "Jetpack Compose Example"
 include ':app'
+
+include ':react-native-reanimated'
+project(':react-native-reanimated').projectDir = new File(rootDir, "$modules_folder/react-native-reanimated/android")
+
+include ':react-native-safe-area-context'
+project(':react-native-safe-area-context').projectDir = new File(rootDir, "$modules_folder/react-native-safe-area-context/android")
+
+include ':react-native-screens'
+project(':react-native-screens').projectDir = new File(rootDir, "$modules_folder/react-native-screens/android")

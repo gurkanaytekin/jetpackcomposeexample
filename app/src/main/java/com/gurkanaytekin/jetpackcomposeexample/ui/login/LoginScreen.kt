@@ -42,12 +42,22 @@ fun LoginScreen(viewModel: LoginViewModel, navController: NavController) {
         OutlinedTextFieldComposable(viewModel.email, onInputChanged = { viewModel.email = it}, label = "Username", leadingIcon = Icons.Filled.Email, keyboardType = KeyboardType.Email)
         OutlinedTextFieldComposable(viewModel.password, onInputChanged = {  viewModel.password = it  }, label = "Password", leadingIcon = Icons.Filled.Lock, keyboardType = KeyboardType.Password)
         Button(
+            modifier = Modifier.padding(bottom = 10.dp),
             enabled = !viewModel.callServiceState,
             onClick = {
                 viewModel.singIn()
             }
         ) {
             Text(text = "Sıgn In")
+        }
+
+        Button(
+            enabled = !viewModel.callServiceState,
+            onClick = {
+                viewModel.goToHeroes()
+            }
+        ) {
+            Text(text = "Heroes In Turkish History")
         }
     }
 }

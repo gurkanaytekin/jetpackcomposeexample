@@ -9,4 +9,5 @@ sealed class Screen(val route: String) {
             return "detail_screen?id=${id}"
         }
     }
+    object HITHScreen : Screen(route = "heroes_in_turkish_history")
 }

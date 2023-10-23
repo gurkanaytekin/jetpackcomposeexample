@@ -7,10 +7,14 @@
         <option name="testRunner" value="GRADLE" />
         <option name="distributionType" value="DEFAULT_WRAPPED" />
         <option name="externalProjectPath" value="$PROJECT_DIR$" />
+        <option name="gradleJvm" value="zulu-11" />
         <option name="modules">
           <set>
             <option value="$PROJECT_DIR$" />
             <option value="$PROJECT_DIR$/app" />
+            <option value="$PROJECT_DIR$/react-native-dependencies/react-native-reanimated/android" />
+            <option value="$PROJECT_DIR$/react-native-dependencies/react-native-safe-area-context/android" />
+            <option value="$PROJECT_DIR$/react-native-dependencies/react-native-screens/android" />
           </set>
         </option>
       </GradleProjectSettings>

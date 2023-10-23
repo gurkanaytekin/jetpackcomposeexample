@@ -10,7 +10,10 @@ import androidx.navigation.compose.rememberNavController
 import androidx.navigation.navArgument
 import com.gurkanaytekin.jetpackcomposeexample.ui.login.LoginScreen
 import androidx.hilt.navigation.compose.hiltViewModel
+import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.NavHostController
+import com.gurkanaytekin.jetpackcomposeexample.ui.heroesinturkishhistory.HeroesInTurkishHistoryScreen
+import com.gurkanaytekin.jetpackcomposeexample.ui.heroesinturkishhistory.HeroesInTurkishHistoryViewModel
 import com.gurkanaytekin.jetpackcomposeexample.ui.login.LoginViewModel
 import com.gurkanaytekin.jetpackcomposeexample.ui.tasks.TaskListScreen
 import com.gurkanaytekin.jetpackcomposeexample.ui.tasks.TaskListViewModel
@@ -34,6 +37,10 @@ fun Navigation(navController: NavHostController) {
             val id = it.arguments?.getInt("id")?: 0;
             Log.d("DetailScreen", "Parametre $id")
             DetailScreen(id)
+        }
+        composable(route = Screen.HITHScreen.route) {
+            val viewModel = hiltViewModel<HeroesInTurkishHistoryViewModel>()
+            HeroesInTurkishHistoryScreen(viewModel, navController = navController)
         }
     }
 }
